@@ -2,22 +2,13 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Product } from './product.entity';
 
 @Entity()
-export class Review {
+export class Image {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  username: string;
+  url: string;
 
-  @Column()
-  rating: number;
-
-  @Column()
-  comment: string;
-
-  @Column()
-  date: Date;
-
-  @ManyToOne(() => Product, (product) => product.reviews)
+  @ManyToOne(() => Product, (product) => product.images)
   product: Product;
 }
