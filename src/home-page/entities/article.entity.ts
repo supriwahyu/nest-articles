@@ -1,4 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Author } from './author.entity';
+import { Comment } from './comment.entity';
 
 @Entity()
 export class Article {
@@ -6,28 +8,23 @@ export class Article {
   id: number;
 
   @Column()
-  name: string;
+  title: string;
 
   @Column()
-  brand: string;
+  authorName: string;
 
   @Column()
-  model: string;
+  publicationDate: Date;
 
-  @Column()
-  releaseDate: Date;
+  @Column('text')
+  content: string;
 
-  @Column()
-  averageRating: number;
+  @Column('simple-array')
+  tags: string[];
 
-  @Column()
-  imageUrl: string;
+  @ManyToOne(() => Author, (author) => author.articles)
+  author: Author;
 
-  @Column()
-  description: string;
-
-  @Column()
-  price: number;
-
-  // Add more fields as needed
+  @OneToMany(() => Comment, (comment) => comment.article)
+  comments: Comment[];
 }
